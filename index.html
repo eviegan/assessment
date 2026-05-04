@@ -1,442 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Q1 2026 CRR Summary</title>
-  <style>
-    :root {
-      --bg: #f6f7fb;
-      --ink: #172033;
-      --muted: #6b7280;
-      --card: #ffffff;
-      --brazil: #57a639;
-      --brazil-soft: #eaf5e3;
-      --mexico: #f0642f;
-      --mexico-soft: #fff0e9;
-      --line: #e5e7eb;
-      --blue: #2563eb;
-      --shadow: 0 20px 50px rgba(17, 24, 39, 0.12);
-      --radius: 24px;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(87, 166, 57, 0.16), transparent 34%),
-        radial-gradient(circle at top right, rgba(240, 100, 47, 0.16), transparent 32%),
-        var(--bg);
-      color: var(--ink);
-      min-height: 100vh;
-      padding: 32px;
-    }
-
-    .page {
-      max-width: 1280px;
-      margin: 0 auto;
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 24px;
-      align-items: stretch;
-      margin-bottom: 28px;
-    }
-
-    .hero-main,
-    .hero-side,
-    .flip-card-inner,
-    .insight-panel {
-      background: rgba(255, 255, 255, 0.86);
-      backdrop-filter: blur(18px);
-      border: 1px solid rgba(255,255,255,0.75);
-      box-shadow: var(--shadow);
-      border-radius: var(--radius);
-    }
-
-    .hero-main { padding: 34px; }
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      font-weight: 800;
-      color: var(--blue);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 14px;
-    }
-
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: var(--blue);
-      box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.12);
-    }
-
-    h1 {
-      font-size: clamp(34px, 5vw, 64px);
-      line-height: 0.95;
-      margin: 0 0 18px;
-      letter-spacing: -0.055em;
-    }
-
-    .sub {
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.6;
-      max-width: 760px;
-      margin: 0;
-    }
-
-    .hero-side {
-      padding: 24px;
-      display: grid;
-      gap: 14px;
-    }
-
-    .mini-stat {
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 17px;
-      background: #fff;
-    }
-
-    .mini-stat strong {
-      display: block;
-      font-size: 28px;
-      letter-spacing: -0.03em;
-    }
-
-    .mini-stat span {
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .04em;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 24px;
-      margin-bottom: 24px;
-    }
-
-    .flip-card {
-      min-height: 470px;
-      perspective: 1600px;
-      cursor: pointer;
-    }
-
-    .flip-card-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      min-height: 470px;
-      transform-style: preserve-3d;
-      transition: transform .75s cubic-bezier(.2,.8,.2,1);
-    }
-
-    .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
-
-    .card-face {
-      position: absolute;
-      inset: 0;
-      backface-visibility: hidden;
-      padding: 28px;
-      border-radius: var(--radius);
-      overflow: hidden;
-    }
-
-    .card-back { transform: rotateY(180deg); }
-
-    .country-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      align-items: flex-start;
-      margin-bottom: 22px;
-    }
-
-    .flag-pill {
-      font-weight: 900;
-      color: #fff;
-      padding: 10px 16px;
-      border-radius: 999px;
-      font-size: 14px;
-      letter-spacing: .06em;
-    }
-
-    .brazil .flag-pill { background: var(--brazil); }
-    .mexico .flag-pill { background: var(--mexico); }
-
-    .click-hint {
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .headline-number {
-      font-size: 72px;
-      line-height: 0.95;
-      letter-spacing: -0.07em;
-      font-weight: 900;
-      margin: 8px 0 6px;
-    }
-
-    .headline-label {
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.45;
-      margin-bottom: 26px;
-    }
-
-    .metric-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    .metric {
-      border-radius: 18px;
-      padding: 16px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.82);
-    }
-
-    .brazil .metric.feature { background: var(--brazil-soft); border-color: rgba(87,166,57,.28); }
-    .mexico .metric.feature { background: var(--mexico-soft); border-color: rgba(240,100,47,.28); }
-
-    .metric b {
-      display: block;
-      font-size: 24px;
-      letter-spacing: -0.03em;
-      margin-bottom: 4px;
-    }
-
-    .metric span {
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 750;
-      text-transform: uppercase;
-      letter-spacing: .04em;
-    }
-
-    .months {
-      display: grid;
-      gap: 10px;
-      margin-top: 22px;
-    }
-
-    .month-row {
-      display: grid;
-      grid-template-columns: 84px 1fr 72px;
-      gap: 12px;
-      align-items: center;
-      font-size: 14px;
-      font-weight: 750;
-    }
-
-    .bar {
-      height: 11px;
-      border-radius: 999px;
-      background: #edf0f5;
-      overflow: hidden;
-    }
-
-    .bar span { display:block; height:100%; border-radius:inherit; }
-    .brazil .bar span { background: var(--brazil); }
-    .mexico .bar span { background: var(--mexico); }
-
-    .table-title {
-      font-size: 24px;
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      margin: 4px 0 16px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-      overflow: hidden;
-      border-radius: 16px;
-    }
-
-    th, td {
-      padding: 11px 10px;
-      text-align: right;
-      border-bottom: 1px solid var(--line);
-    }
-
-    th:first-child, td:first-child { text-align: left; font-weight: 800; }
-    th { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
-    td.rate { color: var(--blue); font-weight: 850; }
-
-    .insight-panel {
-      padding: 28px;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 18px;
-    }
-
-    .insight {
-      border-left: 5px solid var(--blue);
-      padding: 4px 0 4px 16px;
-    }
-
-    .insight h3 {
-      margin: 0 0 7px;
-      font-size: 18px;
-      letter-spacing: -0.03em;
-    }
-
-    .insight p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.55;
-      font-size: 14px;
-    }
-
-    @media (max-width: 960px) {
-      body { padding: 18px; }
-      .hero, .cards, .insight-panel { grid-template-columns: 1fr; }
-      .metric-grid { grid-template-columns: 1fr; }
-      .flip-card, .flip-card-inner { min-height: 620px; }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Q1 2026 CRR Dashboard</title>
+<style>
+:root{
+  --bg:#eef2f7;
+  --ink:#111827;
+  --muted:#6b7280;
+  --card:#ffffff;
+  --line:#e5e7eb;
+  --green:#2f9e44;
+  --green-soft:#e9f7ec;
+  --orange:#f0642f;
+  --orange-soft:#fff0e8;
+  --blue:#2563eb;
+  --cyan:#0891b2;
+  --shadow:0 18px 45px rgba(15,23,42,.12);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  padding:34px;
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 8% 10%,rgba(47,158,68,.20),transparent 26%),
+    radial-gradient(circle at 92% 8%,rgba(240,100,47,.22),transparent 28%),
+    linear-gradient(135deg,#f8fafc,#eef2f7);
+}
+.page{max-width:1220px;margin:auto}
+.hero{
+  display:flex;
+  justify-content:space-between;
+  gap:22px;
+  align-items:flex-end;
+  margin-bottom:26px;
+}
+.kicker{
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+  padding:8px 13px;
+  border-radius:999px;
+  background:white;
+  color:var(--blue);
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  box-shadow:0 8px 22px rgba(37,99,235,.10);
+}
+.kicker:before{content:"";width:9px;height:9px;border-radius:99px;background:var(--blue)}
+h1{
+  margin:14px 0 8px;
+  font-size:48px;
+  letter-spacing:-.06em;
+  line-height:.98;
+}
+.lead{margin:0;color:var(--muted);font-size:16px;line-height:1.55;max-width:720px}
+.summary-pill{
+  background:white;
+  border:1px solid rgba(255,255,255,.8);
+  border-radius:24px;
+  padding:18px 22px;
+  box-shadow:var(--shadow);
+  min-width:270px;
+}
+.summary-pill b{display:block;font-size:28px;letter-spacing:-.04em}
+.summary-pill span{color:var(--muted);font-size:13px;font-weight:700}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+.flip-card{
+  height:360px;
+  perspective:1400px;
+  cursor:pointer;
+}
+.inner{
+  position:relative;
+  width:100%;height:100%;
+  transform-style:preserve-3d;
+  transition:transform .7s cubic-bezier(.2,.8,.2,1);
+}
+.flip-card.flip .inner{transform:rotateY(180deg)}
+.face{
+  position:absolute;
+  inset:0;
+  padding:22px;
+  border-radius:28px;
+  background:rgba(255,255,255,.88);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:var(--shadow);
+  backface-visibility:hidden;
+  overflow:hidden;
+}
+.face:after{
+  content:"";
+  position:absolute;
+  width:190px;height:190px;
+  border-radius:50%;
+  right:-70px;top:-70px;
+  opacity:.18;
+}
+.back{transform:rotateY(180deg)}
+.brazil .face:after{background:var(--green)}
+.mexico .face:after{background:var(--orange)}
+.top{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2}
+.tag{font-size:11px;font-weight:900;padding:7px 11px;border-radius:999px;text-transform:uppercase;letter-spacing:.04em}
+.brazil .country{background:var(--green-soft);color:var(--green)}
+.mexico .country{background:var(--orange-soft);color:var(--orange)}
+.segment{background:#eff6ff;color:var(--blue)}
+.tap{font-size:11px;color:var(--muted);font-weight:800}
+.big{
+  font-size:52px;
+  line-height:.9;
+  font-weight:950;
+  letter-spacing:-.08em;
+  margin:28px 0 8px;
+  position:relative;z-index:2;
+}
+.label{font-size:13px;color:var(--muted);line-height:1.45;margin-bottom:20px;position:relative;z-index:2}
+.bars{display:grid;gap:12px;position:relative;z-index:2}
+.row{display:grid;grid-template-columns:38px 1fr 52px;gap:9px;align-items:center;font-size:12px;font-weight:800}
+.track{height:10px;background:#edf2f7;border-radius:999px;overflow:hidden}
+.fill{height:100%;border-radius:999px}
+.brazil .fill{background:linear-gradient(90deg,#86d36f,var(--green))}
+.mexico .fill{background:linear-gradient(90deg,#ffb088,var(--orange))}
+.score-ring{
+  width:112px;height:112px;border-radius:50%;
+  display:grid;place-items:center;
+  margin:20px auto 18px;
+  background:conic-gradient(var(--blue) var(--p),#e5e7eb 0);
+  position:relative;
+}
+.score-ring:before{content:"";position:absolute;width:78px;height:78px;background:white;border-radius:50%}
+.score-ring span{position:relative;font-size:20px;font-weight:950}
+.back h3{margin:4px 0 12px;font-size:22px;letter-spacing:-.04em}
+.back p{color:var(--muted);font-size:14px;line-height:1.55;margin:0 0 14px}
+.note{padding:12px;border-radius:16px;background:#f8fafc;border:1px solid var(--line);font-size:13px;color:#374151;font-weight:700}
+.footer{
+  margin-top:22px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+.insight{
+  background:white;
+  border-radius:22px;
+  padding:18px;
+  box-shadow:0 10px 28px rgba(15,23,42,.08);
+  border:1px solid rgba(255,255,255,.85);
+}
+.insight b{display:block;margin-bottom:6px;font-size:16px}
+.insight span{color:var(--muted);font-size:13px;line-height:1.5}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(2,1fr)}.hero{display:block}.summary-pill{margin-top:18px}.footer{grid-template-columns:1fr}}
+@media(max-width:650px){body{padding:18px}.grid{grid-template-columns:1fr}h1{font-size:36px}}
+</style>
 </head>
 <body>
-  <main class="page">
-    <section class="hero">
-      <div class="hero-main">
-        <div class="eyebrow"><span class="dot"></span> Q1 2026 · Jan to Mar · CRR Summary</div>
-        <h1>Retention health check for Brazil & Mexico</h1>
-        <p class="sub">Click each country card to flip between the executive summary and the detailed cohort table. Focus is Q1 only: January, February, and March 2026.</p>
-      </div>
-      <aside class="hero-side">
-        <div class="mini-stat"><span>Best FTD M1 CRR</span><strong>18.11%</strong><small>Brazil · February</small></div>
-        <div class="mini-stat"><span>Best Existing M1 CRR</span><strong>70.00%</strong><small>Mexico · February</small></div>
-        <div class="mini-stat"><span>Main message</span><strong>Existing users win</strong><small>Retention is materially stronger after users mature.</small></div>
-      </aside>
-    </section>
+<div class="page">
+  <section class="hero">
+    <div>
+      <div class="kicker">Q1 2026 · Jan–Mar · CRR</div>
+      <h1>Retention Summary Dashboard</h1>
+      <p class="lead">A graphic flip-card view comparing Brazil and Mexico across FTD and Existing user retention. Click any card to reveal the business insight.</p>
+    </div>
+    <div class="summary-pill">
+      <span>Headline takeaway</span>
+      <b>Existing users are the strength</b>
+    </div>
+  </section>
 
-    <section class="cards">
-      <article class="flip-card brazil" onclick="this.classList.toggle('flipped')">
-        <div class="flip-card-inner">
-          <div class="card-face card-front">
-            <div class="country-top">
-              <div class="flag-pill">BRAZIL</div>
-              <div class="click-hint">Click to flip</div>
-            </div>
-            <div class="headline-number">18.11%</div>
-            <div class="headline-label">Best Q1 FTD M1 CRR, achieved in February. Brazil shows stronger early FTD retention than Mexico in February and solid Existing user stability.</div>
-
-            <div class="metric-grid">
-              <div class="metric feature"><b>11.00%</b><span>Jan FTD M1</span></div>
-              <div class="metric feature"><b>18.11%</b><span>Feb FTD M1</span></div>
-              <div class="metric feature"><b>13.06%</b><span>Mar FTD M1</span></div>
-              <div class="metric"><b>60.56%</b><span>Jan Existing M1</span></div>
-              <div class="metric"><b>59.09%</b><span>Feb Existing M1</span></div>
-              <div class="metric"><b>60.36%</b><span>Mar Existing M1</span></div>
-            </div>
-
-            <div class="months">
-              <div class="month-row"><span>Jan FTD</span><div class="bar"><span style="width:61%"></span></div><span>11.00%</span></div>
-              <div class="month-row"><span>Feb FTD</span><div class="bar"><span style="width:100%"></span></div><span>18.11%</span></div>
-              <div class="month-row"><span>Mar FTD</span><div class="bar"><span style="width:72%"></span></div><span>13.06%</span></div>
-            </div>
-          </div>
-
-          <div class="card-face card-back">
-            <div class="country-top">
-              <div class="flag-pill">BRAZIL DETAILS</div>
-              <div class="click-hint">Click to return</div>
-            </div>
-            <div class="table-title">Q1 Cohort Performance</div>
-            <table>
-              <thead><tr><th>Segment</th><th>Month</th><th>M0</th><th>M1</th><th>M2</th><th>M3</th></tr></thead>
-              <tbody>
-                <tr><td>FTD</td><td>Jan</td><td>209</td><td class="rate">11.00%</td><td class="rate">9.09%</td><td class="rate">8.13%</td></tr>
-                <tr><td>FTD</td><td>Feb</td><td>127</td><td class="rate">18.11%</td><td class="rate">9.45%</td><td class="rate">0.00%</td></tr>
-                <tr><td>FTD</td><td>Mar</td><td>421</td><td class="rate">13.06%</td><td class="rate">0.00%</td><td class="rate">0.00%</td></tr>
-                <tr><td>Existing</td><td>Jan</td><td>142</td><td class="rate">60.56%</td><td class="rate">53.52%</td><td class="rate">51.41%</td></tr>
-                <tr><td>Existing</td><td>Feb</td><td>154</td><td class="rate">59.09%</td><td class="rate">53.25%</td><td class="rate">0.00%</td></tr>
-                <tr><td>Existing</td><td>Mar</td><td>169</td><td class="rate">60.36%</td><td class="rate">0.00%</td><td class="rate">0.00%</td></tr>
-              </tbody>
-            </table>
+  <section class="grid">
+    <article class="flip-card brazil" onclick="this.classList.toggle('flip')">
+      <div class="inner">
+        <div class="face">
+          <div class="top"><span class="tag country">Brazil</span><span class="tag segment">FTD</span></div>
+          <div class="big">18.11%</div>
+          <div class="label">Best Q1 M1 CRR · February cohort</div>
+          <div class="bars">
+            <div class="row"><span>Jan</span><div class="track"><div class="fill" style="width:61%"></div></div><span>11.00%</span></div>
+            <div class="row"><span>Feb</span><div class="track"><div class="fill" style="width:100%"></div></div><span>18.11%</span></div>
+            <div class="row"><span>Mar</span><div class="track"><div class="fill" style="width:72%"></div></div><span>13.06%</span></div>
           </div>
         </div>
-      </article>
+        <div class="face back">
+          <div class="tap">Click to return</div>
+          <div class="score-ring" style="--p:72%"><span>Good</span></div>
+          <h3>Strongest FTD base</h3>
+          <p>Brazil has the best FTD M1 result in Q1. February should be reviewed for campaign, bonus, or onboarding drivers.</p>
+          <div class="note">Action: replicate Feb mechanics into future FTD journeys.</div>
+        </div>
+      </div>
+    </article>
 
-      <article class="flip-card mexico" onclick="this.classList.toggle('flipped')">
-        <div class="flip-card-inner">
-          <div class="card-face card-front">
-            <div class="country-top">
-              <div class="flag-pill">MEXICO</div>
-              <div class="click-hint">Click to flip</div>
-            </div>
-            <div class="headline-number">70.00%</div>
-            <div class="headline-label">Best Q1 Existing M1 CRR, achieved in February. Mexico has excellent Existing-user retention but more volatile FTD retention.</div>
-
-            <div class="metric-grid">
-              <div class="metric feature"><b>6.60%</b><span>Jan FTD M1</span></div>
-              <div class="metric feature"><b>8.73%</b><span>Feb FTD M1</span></div>
-              <div class="metric feature"><b>15.42%</b><span>Mar FTD M1</span></div>
-              <div class="metric"><b>53.04%</b><span>Jan Existing M1</span></div>
-              <div class="metric"><b>70.00%</b><span>Feb Existing M1</span></div>
-              <div class="metric"><b>56.54%</b><span>Mar Existing M1</span></div>
-            </div>
-
-            <div class="months">
-              <div class="month-row"><span>Jan FTD</span><div class="bar"><span style="width:43%"></span></div><span>6.60%</span></div>
-              <div class="month-row"><span>Feb FTD</span><div class="bar"><span style="width:57%"></span></div><span>8.73%</span></div>
-              <div class="month-row"><span>Mar FTD</span><div class="bar"><span style="width:100%"></span></div><span>15.42%</span></div>
-            </div>
-          </div>
-
-          <div class="card-face card-back">
-            <div class="country-top">
-              <div class="flag-pill">MEXICO DETAILS</div>
-              <div class="click-hint">Click to return</div>
-            </div>
-            <div class="table-title">Q1 Cohort Performance</div>
-            <table>
-              <thead><tr><th>Segment</th><th>Month</th><th>M0</th><th>M1</th><th>M2</th><th>M3</th></tr></thead>
-              <tbody>
-                <tr><td>FTD</td><td>Jan</td><td>197</td><td class="rate">6.60%</td><td class="rate">5.58%</td><td class="rate">0.00%</td></tr>
-                <tr><td>FTD</td><td>Feb</td><td>126</td><td class="rate">8.73%</td><td class="rate">11.90%</td><td class="rate">0.00%</td></tr>
-                <tr><td>FTD</td><td>Mar</td><td>389</td><td class="rate">15.42%</td><td class="rate">0.00%</td><td class="rate">0.00%</td></tr>
-                <tr><td>Existing</td><td>Jan</td><td>181</td><td class="rate">53.04%</td><td class="rate">54.70%</td><td class="rate">46.41%</td></tr>
-                <tr><td>Existing</td><td>Feb</td><td>150</td><td class="rate">70.00%</td><td class="rate">60.67%</td><td class="rate">0.00%</td></tr>
-                <tr><td>Existing</td><td>Mar</td><td>214</td><td class="rate">56.54%</td><td class="rate">0.00%</td><td class="rate">0.00%</td></tr>
-              </tbody>
-            </table>
+    <article class="flip-card brazil" onclick="this.classList.toggle('flip')">
+      <div class="inner">
+        <div class="face">
+          <div class="top"><span class="tag country">Brazil</span><span class="tag segment">Existing</span></div>
+          <div class="big">60.56%</div>
+          <div class="label">Best Q1 M1 CRR · January cohort</div>
+          <div class="bars">
+            <div class="row"><span>Jan</span><div class="track"><div class="fill" style="width:100%"></div></div><span>60.56%</span></div>
+            <div class="row"><span>Feb</span><div class="track"><div class="fill" style="width:98%"></div></div><span>59.09%</span></div>
+            <div class="row"><span>Mar</span><div class="track"><div class="fill" style="width:100%"></div></div><span>60.36%</span></div>
           </div>
         </div>
-      </article>
-    </section>
+        <div class="face back">
+          <div class="tap">Click to return</div>
+          <div class="score-ring" style="--p:88%"><span>Stable</span></div>
+          <h3>Most consistent segment</h3>
+          <p>Brazil Existing retention stays around 59–61%, showing a reliable loyal-user base.</p>
+          <div class="note">Action: increase volume while preserving loyalty quality.</div>
+        </div>
+      </div>
+    </article>
 
-    <section class="insight-panel">
-      <div class="insight">
-        <h3>FTD retention needs focus</h3>
-        <p>Q1 FTD M1 CRR is much lower than Existing CRR, meaning the biggest opportunity is converting first-time users into repeat users earlier.</p>
+    <article class="flip-card mexico" onclick="this.classList.toggle('flip')">
+      <div class="inner">
+        <div class="face">
+          <div class="top"><span class="tag country">Mexico</span><span class="tag segment">FTD</span></div>
+          <div class="big">15.42%</div>
+          <div class="label">Best Q1 M1 CRR · March cohort</div>
+          <div class="bars">
+            <div class="row"><span>Jan</span><div class="track"><div class="fill" style="width:43%"></div></div><span>6.60%</span></div>
+            <div class="row"><span>Feb</span><div class="track"><div class="fill" style="width:57%"></div></div><span>8.73%</span></div>
+            <div class="row"><span>Mar</span><div class="track"><div class="fill" style="width:100%"></div></div><span>15.42%</span></div>
+          </div>
+        </div>
+        <div class="face back">
+          <div class="tap">Click to return</div>
+          <div class="score-ring" style="--p:62%"><span>Rising</span></div>
+          <h3>Improving FTD trend</h3>
+          <p>Mexico FTD started weak but improved sharply in March, suggesting better acquisition quality or stronger activation.</p>
+          <div class="note">Action: compare March vs Jan/Feb source mix and CRM flow.</div>
+        </div>
       </div>
-      <div class="insight">
-        <h3>Brazil is steadier on FTD</h3>
-        <p>Brazil’s Q1 FTD M1 CRR is more consistent, with February as the strongest month and January showing healthy M2/M3 continuation.</p>
+    </article>
+
+    <article class="flip-card mexico" onclick="this.classList.toggle('flip')">
+      <div class="inner">
+        <div class="face">
+          <div class="top"><span class="tag country">Mexico</span><span class="tag segment">Existing</span></div>
+          <div class="big">70.00%</div>
+          <div class="label">Best Q1 M1 CRR · February cohort</div>
+          <div class="bars">
+            <div class="row"><span>Jan</span><div class="track"><div class="fill" style="width:76%"></div></div><span>53.04%</span></div>
+            <div class="row"><span>Feb</span><div class="track"><div class="fill" style="width:100%"></div></div><span>70.00%</span></div>
+            <div class="row"><span>Mar</span><div class="track"><div class="fill" style="width:81%"></div></div><span>56.54%</span></div>
+          </div>
+        </div>
+        <div class="face back">
+          <div class="tap">Click to return</div>
+          <div class="score-ring" style="--p:95%"><span>Best</span></div>
+          <h3>Top Q1 performer</h3>
+          <p>Mexico Existing produced the strongest single result in Q1, reaching 70% M1 retention in February.</p>
+          <div class="note">Action: identify February retention hooks and reuse them.</div>
+        </div>
       </div>
-      <div class="insight">
-        <h3>Mexico wins Existing users</h3>
-        <p>Mexico’s February Existing cohort is the standout result at 70.00% M1 and 60.67% M2, suggesting strong loyalty among matured users.</p>
-      </div>
-    </section>
-  </main>
+    </article>
+  </section>
+
+  <section class="footer">
+    <div class="insight"><b>FTD needs activation support</b><span>FTD retention is much lower than Existing retention in both countries, so early lifecycle CRM is the biggest opportunity.</span></div>
+    <div class="insight"><b>Brazil = consistency</b><span>Brazil has steady Existing retention and stronger FTD performance across Q1 compared with Mexico’s early months.</span></div>
+    <div class="insight"><b>Mexico = peak potential</b><span>Mexico shows the strongest high point, especially Existing users in February and FTD improvement in March.</span></div>
+  </section>
+</div>
 </body>
 </html>
