@@ -3,272 +3,2454 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Q1 2026 CRR Dashboard</title>
+
+<title>Q2 2026 Retention Assessment & Q4 Plan</title>
+
 <style>
 :root{
   --bg:#eef2f7;
-  --ink:#111827;
-  --muted:#6b7280;
+  --ink:#0f172a;
+  --muted:#64748b;
   --card:#ffffff;
-  --line:#e5e7eb;
+  --line:#e2e8f0;
+
   --green:#2f9e44;
   --green-soft:#e9f7ec;
+
   --orange:#f0642f;
   --orange-soft:#fff0e8;
+
   --blue:#2563eb;
-  --cyan:#0891b2;
-  --shadow:0 18px 45px rgba(15,23,42,.12);
+  --blue-soft:#eff6ff;
+
+  --purple:#7c3aed;
+  --purple-soft:#f5f3ff;
+
+  --amber:#d97706;
+  --amber-soft:#fff7ed;
+
+  --red:#dc2626;
+  --red-soft:#fef2f2;
+
+  --dark:#111827;
+  --dark2:#1e293b;
+
+  --shadow:0 18px 45px rgba(15,23,42,.09);
 }
-*{box-sizing:border-box}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   margin:0;
   padding:34px;
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
   color:var(--ink);
+
   background:
-    radial-gradient(circle at 8% 10%,rgba(47,158,68,.20),transparent 26%),
-    radial-gradient(circle at 92% 8%,rgba(240,100,47,.22),transparent 28%),
-    linear-gradient(135deg,#f8fafc,#eef2f7);
+    radial-gradient(
+      circle at 5% 3%,
+      rgba(47,158,68,.14),
+      transparent 27%
+    ),
+    radial-gradient(
+      circle at 95% 5%,
+      rgba(240,100,47,.14),
+      transparent 28%
+    ),
+    linear-gradient(
+      135deg,
+      #f8fafc,
+      var(--bg)
+    );
 }
-.page{max-width:1220px;margin:auto}
+
+.page{
+  max-width:1240px;
+  margin:auto;
+}
+
+
+/* ======================================================
+   ANIMATION
+====================================================== */
+
+.reveal{
+  opacity:0;
+  transform:translateY(18px);
+  animation:
+    reveal .65s ease forwards;
+}
+
+.delay-1{animation-delay:.08s}
+.delay-2{animation-delay:.16s}
+.delay-3{animation-delay:.24s}
+.delay-4{animation-delay:.32s}
+
+@keyframes reveal{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@keyframes grow{
+  from{width:0}
+}
+
+@keyframes pulseGlow{
+  0%,100%{
+    box-shadow:
+      0 0 0 0
+      rgba(37,99,235,0);
+  }
+
+  50%{
+    box-shadow:
+      0 0 0 7px
+      rgba(37,99,235,.07);
+  }
+}
+
+
+/* ======================================================
+   HERO
+====================================================== */
+
 .hero{
   display:flex;
   justify-content:space-between;
-  gap:22px;
   align-items:flex-end;
-  margin-bottom:26px;
+
+  gap:28px;
+
+  margin-bottom:28px;
 }
+
 .kicker{
   display:inline-flex;
-  gap:8px;
   align-items:center;
+
+  gap:8px;
+
   padding:8px 13px;
-  border-radius:999px;
-  background:white;
+
+  background:#fff;
   color:var(--blue);
+
+  border-radius:999px;
+
   font-size:12px;
   font-weight:900;
-  letter-spacing:.08em;
+
   text-transform:uppercase;
-  box-shadow:0 8px 22px rgba(37,99,235,.10);
+  letter-spacing:.08em;
+
+  box-shadow:
+    0 8px 22px
+    rgba(37,99,235,.08);
 }
-.kicker:before{content:"";width:9px;height:9px;border-radius:99px;background:var(--blue)}
+
+.kicker:before{
+  content:"";
+
+  width:9px;
+  height:9px;
+
+  border-radius:50%;
+
+  background:var(--blue);
+}
+
 h1{
   margin:14px 0 8px;
+
   font-size:48px;
-  letter-spacing:-.06em;
   line-height:.98;
+
+  letter-spacing:-.06em;
 }
-.lead{margin:0;color:var(--muted);font-size:16px;line-height:1.55;max-width:720px}
-.summary-pill{
-  background:white;
-  border:1px solid rgba(255,255,255,.8);
+
+.hero-text{
+  margin:0;
+
+  max-width:740px;
+
+  color:var(--muted);
+
+  font-size:15px;
+  line-height:1.6;
+}
+
+.hero-summary{
+  min-width:310px;
+
+  padding:19px 21px;
+
+  background:#fff;
+
   border-radius:24px;
-  padding:18px 22px;
+
   box-shadow:var(--shadow);
-  min-width:270px;
 }
-.summary-pill b{display:block;font-size:28px;letter-spacing:-.04em}
-.summary-pill span{color:var(--muted);font-size:13px;font-weight:700}
-.grid{
+
+.hero-summary small{
+  display:block;
+
+  margin-bottom:6px;
+
+  color:var(--muted);
+
+  font-size:10px;
+  font-weight:900;
+
+  text-transform:uppercase;
+  letter-spacing:.07em;
+}
+
+.hero-summary strong{
+  display:block;
+
+  font-size:21px;
+  line-height:1.25;
+
+  letter-spacing:-.03em;
+}
+
+
+/* ======================================================
+   SECTION TITLE
+====================================================== */
+
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+
+  gap:20px;
+
+  margin:32px 0 14px;
+}
+
+.section-title h2{
+  margin:0;
+
+  font-size:25px;
+
+  letter-spacing:-.04em;
+}
+
+.section-title p{
+  margin:4px 0 0;
+
+  color:var(--muted);
+
+  font-size:11px;
+  line-height:1.5;
+}
+
+.section-badge{
+  padding:7px 10px;
+
+  border-radius:999px;
+
+  background:#fff;
+
+  color:var(--muted);
+
+  font-size:9px;
+  font-weight:900;
+
+  text-transform:uppercase;
+  letter-spacing:.06em;
+
+  box-shadow:
+    0 5px 15px
+    rgba(15,23,42,.05);
+}
+
+
+/* ======================================================
+   Q2 SUMMARY CARDS
+====================================================== */
+
+.summary-grid{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:18px;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap:17px;
 }
-.flip-card{
-  height:430px;
-  perspective:1400px;
-  cursor:pointer;
-}
-.inner{
+
+.summary-card{
   position:relative;
-  width:100%;height:100%;
-  transform-style:preserve-3d;
-  transition:transform .7s cubic-bezier(.2,.8,.2,1);
-}
-.flip-card.flip .inner{transform:rotateY(180deg)}
-.face{
-  position:absolute;
-  inset:0;
-  padding:24px;
-  border-radius:28px;
-  background:rgba(255,255,255,.88);
-  border:1px solid rgba(255,255,255,.9);
-  box-shadow:var(--shadow);
-  backface-visibility:hidden;
+
+  min-height:310px;
+
+  padding:23px;
+
+  background:#fff;
+
+  border-radius:27px;
+
   overflow:hidden;
+
+  box-shadow:var(--shadow);
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease;
 }
-.face:after{
+
+.summary-card:hover{
+  transform:translateY(-4px);
+
+  box-shadow:
+    0 24px 50px
+    rgba(15,23,42,.13);
+}
+
+.summary-card:after{
   content:"";
+
   position:absolute;
-  width:190px;height:190px;
+
+  width:170px;
+  height:170px;
+
+  top:-65px;
+  right:-65px;
+
   border-radius:50%;
-  right:-70px;top:-70px;
+
   opacity:.18;
 }
-.back{transform:rotateY(180deg)}
-.brazil .face:after{background:var(--green)}
-.mexico .face:after{background:var(--orange)}
-.top{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2}
-.tag{font-size:11px;font-weight:900;padding:7px 11px;border-radius:999px;text-transform:uppercase;letter-spacing:.04em}
-.brazil .country{background:var(--green-soft);color:var(--green)}
-.mexico .country{background:var(--orange-soft);color:var(--orange)}
-.segment{background:#eff6ff;color:var(--blue)}
-.tap{font-size:11px;color:var(--muted);font-weight:800}
-.big{
-  font-size:52px;
-  line-height:.9;
-  font-weight:950;
-  letter-spacing:-.08em;
-  margin:28px 0 8px;
-  position:relative;z-index:2;
+
+.summary-card.br:after{
+  background:var(--green);
 }
-.label{font-size:13px;color:var(--muted);line-height:1.45;margin-bottom:20px;position:relative;z-index:2}
-.bars{display:grid;gap:12px;position:relative;z-index:2}
-.row{display:grid;grid-template-columns:38px 1fr 52px;gap:9px;align-items:center;font-size:12px;font-weight:800}
-.track{height:10px;background:#edf2f7;border-radius:999px;overflow:hidden}
-.fill{height:100%;border-radius:999px}
-.brazil .fill{background:linear-gradient(90deg,#86d36f,var(--green))}
-.mexico .fill{background:linear-gradient(90deg,#ffb088,var(--orange))}
-.score-ring{
-  width:96px;height:96px;border-radius:50%;
-  display:grid;place-items:center;
-  margin:20px auto 18px;
-  background:conic-gradient(var(--blue) var(--p),#e5e7eb 0);
+
+.summary-card.mx:after{
+  background:var(--orange);
+}
+
+.card-top{
   position:relative;
+  z-index:2;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
-.score-ring:before{content:"";position:absolute;width:66px;height:66px;background:white;border-radius:50%}
-.score-ring span{position:relative;font-size:17px;font-weight:950}
-.back h3{margin:4px 0 12px;font-size:22px;letter-spacing:-.04em}
-.back p{color:var(--muted);font-size:13px;line-height:1.45;margin:0 0 12px}
-.note{padding:11px 12px;border-radius:16px;background:#f8fafc;border:1px solid var(--line);font-size:12px;line-height:1.35;color:#374151;font-weight:800}
-.footer{
-  margin-top:22px;
+
+.tag{
+  padding:6px 9px;
+
+  border-radius:999px;
+
+  font-size:9px;
+  font-weight:900;
+
+  text-transform:uppercase;
+}
+
+.br .country-tag{
+  background:var(--green-soft);
+  color:var(--green);
+}
+
+.mx .country-tag{
+  background:var(--orange-soft);
+  color:var(--orange);
+}
+
+.segment-tag{
+  background:var(--blue-soft);
+  color:var(--blue);
+}
+
+.big{
+  position:relative;
+  z-index:2;
+
+  margin:28px 0 5px;
+
+  font-size:48px;
+  font-weight:950;
+
+  line-height:.9;
+
+  letter-spacing:-.075em;
+}
+
+.big-label{
+  position:relative;
+  z-index:2;
+
+  margin-bottom:22px;
+
+  color:var(--muted);
+
+  font-size:11px;
+}
+
+.bars{
+  position:relative;
+  z-index:2;
+
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+
+  gap:13px;
+}
+
+.bar-row{
+  display:grid;
+
+  grid-template-columns:
+    34px
+    1fr
+    58px;
+
+  align-items:center;
+
+  gap:9px;
+
+  font-size:11px;
+  font-weight:800;
+}
+
+.track{
+  height:9px;
+
+  background:#edf2f7;
+
+  border-radius:999px;
+
+  overflow:hidden;
+}
+
+.fill{
+  height:100%;
+
+  border-radius:999px;
+
+  animation:
+    grow .9s ease both;
+}
+
+.br .fill{
+  background:
+    linear-gradient(
+      90deg,
+      #8bd576,
+      var(--green)
+    );
+}
+
+.mx .fill{
+  background:
+    linear-gradient(
+      90deg,
+      #ffb08b,
+      var(--orange)
+    );
+}
+
+.bar-value{
+  text-align:right;
+}
+
+.trend{
+  position:relative;
+  z-index:2;
+
+  margin-top:20px;
+  padding-top:13px;
+
+  border-top:1px solid var(--line);
+}
+
+.trend strong{
+  display:block;
+
+  margin-bottom:3px;
+
+  font-size:11px;
+}
+
+.trend span{
+  color:var(--muted);
+
+  font-size:10px;
+  line-height:1.45;
+}
+
+
+/* ======================================================
+   Q1 VS Q2
+====================================================== */
+
+.compare-box{
+  padding:21px;
+
+  background:#fff;
+
+  border-radius:27px;
+
+  box-shadow:var(--shadow);
+}
+
+.compare-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap:13px;
+}
+
+.compare-card{
+  padding:17px;
+
+  background:#f8fafc;
+
+  border:1px solid var(--line);
+
+  border-radius:19px;
+
+  transition:
+    transform .2s ease,
+    background .2s ease;
+}
+
+.compare-card:hover{
+  transform:translateY(-2px);
+  background:#fff;
+}
+
+.compare-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  margin-bottom:12px;
+}
+
+.compare-head strong{
+  font-size:12px;
+}
+
+.mini-country{
+  padding:4px 7px;
+
+  border-radius:999px;
+
+  font-size:8px;
+  font-weight:900;
+}
+
+.br-compare .mini-country{
+  background:var(--green-soft);
+  color:var(--green);
+}
+
+.mx-compare .mini-country{
+  background:var(--orange-soft);
+  color:var(--orange);
+}
+
+.compare-label{
+  margin-bottom:5px;
+
+  color:var(--muted);
+
+  font-size:9px;
+  font-weight:900;
+
+  text-transform:uppercase;
+  letter-spacing:.05em;
+}
+
+.compare-values{
+  display:flex;
+  align-items:center;
+
+  gap:8px;
+
+  margin-bottom:10px;
+}
+
+.quarter small{
+  display:block;
+
+  color:var(--muted);
+
+  font-size:9px;
+  font-weight:800;
+}
+
+.quarter b{
+  font-size:21px;
+
+  letter-spacing:-.04em;
+}
+
+.compare-arrow{
+  color:#94a3b8;
+
+  font-size:12px;
+}
+
+.delta{
+  display:inline-block;
+
+  padding:5px 8px;
+
+  border-radius:999px;
+
+  font-size:10px;
+  font-weight:900;
+}
+
+.delta.down{
+  color:var(--red);
+  background:var(--red-soft);
+}
+
+.delta.up{
+  color:var(--green);
+  background:var(--green-soft);
+}
+
+
+/* ======================================================
+   REWARDS EARLY READ
+====================================================== */
+
+.rewards-panel{
+  position:relative;
+
+  padding:25px;
+
+  color:#fff;
+
+  background:
+    linear-gradient(
+      125deg,
+      #111827,
+      #182235
+    );
+
+  border-radius:28px;
+
+  overflow:hidden;
+
+  box-shadow:
+    0 20px 50px
+    rgba(15,23,42,.17);
+}
+
+.rewards-panel:after{
+  content:"";
+
+  position:absolute;
+
+  width:330px;
+  height:330px;
+
+  right:-160px;
+  top:-180px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(37,99,235,.30),
+      transparent 68%
+    );
+}
+
+.rewards-header{
+  position:relative;
+  z-index:2;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  gap:20px;
+
+  margin-bottom:18px;
+}
+
+.rewards-title{
+  display:flex;
+  align-items:center;
+
+  gap:12px;
+}
+
+.rewards-icon{
+  width:42px;
+  height:42px;
+
+  display:grid;
+  place-items:center;
+
+  background:
+    rgba(255,255,255,.09);
+
+  border-radius:13px;
+
+  font-size:19px;
+}
+
+.rewards-title h3{
+  margin:0;
+
+  font-size:20px;
+}
+
+.rewards-title p{
+  margin:3px 0 0;
+
+  color:#aeb9ca;
+
+  font-size:10px;
+}
+
+.live-badge{
+  padding:7px 10px;
+
+  background:
+    rgba(34,197,94,.14);
+
+  color:#86efac;
+
+  border:
+    1px solid
+    rgba(134,239,172,.15);
+
+  border-radius:999px;
+
+  font-size:9px;
+  font-weight:900;
+
+  text-transform:uppercase;
+}
+
+.reward-grid{
+  position:relative;
+  z-index:2;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap:12px;
+}
+
+.reward-card{
+  padding:15px;
+
+  background:
+    rgba(255,255,255,.065);
+
+  border:
+    1px solid
+    rgba(255,255,255,.08);
+
+  border-radius:17px;
+}
+
+.reward-card strong{
+  display:block;
+
+  margin-bottom:8px;
+
+  font-size:11px;
+}
+
+.reward-flow{
+  display:flex;
+  align-items:center;
+
+  gap:5px;
+
+  margin-bottom:8px;
+}
+
+.rmonth small{
+  display:block;
+
+  color:#8190a5;
+
+  font-size:8px;
+}
+
+.rmonth b{
+  font-size:13px;
+}
+
+.reward-arrow{
+  color:#59687d;
+}
+
+.reward-note{
+  margin:0;
+
+  color:#acb8c8;
+
+  font-size:9px;
+  line-height:1.45;
+}
+
+
+/* ======================================================
+   Q4 TARGET
+====================================================== */
+
+.target-panel{
+  padding:22px;
+
+  background:#fff;
+
+  border-radius:27px;
+
+  box-shadow:var(--shadow);
+}
+
+.target-grid{
+  display:grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap:15px;
+}
+
+.target-card{
+  padding:20px;
+
+  border-radius:20px;
+}
+
+.target-card.ftd{
+  background:
+    linear-gradient(
+      135deg,
+      #eef6ff,
+      #f8fbff
+    );
+
+  border:1px solid #dbeafe;
+}
+
+.target-card.existing{
+  background:
+    linear-gradient(
+      135deg,
+      #f6f2ff,
+      #fbf9ff
+    );
+
+  border:1px solid #ede9fe;
+}
+
+.target-tag{
+  display:inline-block;
+
+  padding:5px 8px;
+
+  border-radius:999px;
+
+  margin-bottom:10px;
+
+  font-size:9px;
+  font-weight:900;
+
+  text-transform:uppercase;
+}
+
+.ftd .target-tag{
+  color:var(--blue);
+  background:#dbeafe;
+}
+
+.existing .target-tag{
+  color:var(--purple);
+  background:#ede9fe;
+}
+
+.target-number{
+  font-size:38px;
+  font-weight:950;
+
+  letter-spacing:-.055em;
+}
+
+.target-card h3{
+  margin:5px 0 4px;
+
+  font-size:14px;
+}
+
+.target-card p{
+  margin:0;
+
+  color:var(--muted);
+
+  font-size:10px;
+  line-height:1.5;
+}
+
+.target-foot{
+  margin-top:11px;
+  padding-top:10px;
+
+  border-top:
+    1px solid
+    rgba(15,23,42,.08);
+
+  font-size:10px;
+  font-weight:900;
+}
+
+
+/* ======================================================
+   UPCOMING PLAN
+====================================================== */
+
+.plan-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
   gap:16px;
 }
-.insight{
-  background:white;
+
+.plan-card{
+  position:relative;
+
+  min-height:245px;
+
+  padding:20px;
+
+  background:#fff;
+
   border-radius:22px;
-  padding:18px;
-  box-shadow:0 10px 28px rgba(15,23,42,.08);
-  border:1px solid rgba(255,255,255,.85);
+
+  box-shadow:
+    0 10px 28px
+    rgba(15,23,42,.065);
+
+  overflow:hidden;
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease;
 }
-.insight b{display:block;margin-bottom:6px;font-size:16px}
-.insight span{color:var(--muted);font-size:13px;line-height:1.5}
-@media(max-width:1100px){.grid{grid-template-columns:repeat(2,1fr)}.hero{display:block}.summary-pill{margin-top:18px}.footer{grid-template-columns:1fr}}
-@media(max-width:650px){body{padding:18px}.grid{grid-template-columns:1fr}h1{font-size:36px}}
+
+.plan-card:hover{
+  transform:translateY(-4px);
+
+  box-shadow:
+    0 18px 35px
+    rgba(15,23,42,.11);
+}
+
+.plan-card:before{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  top:0;
+  bottom:0;
+
+  width:4px;
+}
+
+.plan-card.live:before{
+  background:var(--green);
+}
+
+.plan-card.discussion:before{
+  background:var(--purple);
+}
+
+.plan-number{
+  width:33px;
+  height:33px;
+
+  display:grid;
+  place-items:center;
+
+  margin-bottom:15px;
+
+  border-radius:10px;
+
+  background:var(--blue-soft);
+  color:var(--blue);
+
+  font-size:11px;
+  font-weight:950;
+}
+
+.plan-status{
+  position:absolute;
+
+  top:18px;
+  right:18px;
+
+  padding:5px 8px;
+
+  border-radius:999px;
+
+  font-size:8px;
+  font-weight:900;
+
+  text-transform:uppercase;
+}
+
+.plan-status.active{
+  background:var(--green-soft);
+  color:var(--green);
+}
+
+.plan-status.pending{
+  background:var(--purple-soft);
+  color:var(--purple);
+}
+
+.plan-card h3{
+  margin:0 0 7px;
+
+  font-size:15px;
+}
+
+.plan-card p{
+  margin:0;
+
+  color:var(--muted);
+
+  font-size:10px;
+  line-height:1.55;
+}
+
+.plan-focus{
+  margin-top:15px;
+  padding-top:12px;
+
+  border-top:1px solid var(--line);
+}
+
+.plan-focus small{
+  display:block;
+
+  margin-bottom:4px;
+
+  color:var(--muted);
+
+  font-size:8px;
+  font-weight:900;
+
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+
+.plan-focus b{
+  display:block;
+
+  font-size:11px;
+  line-height:1.45;
+}
+
+.plan-date{
+  margin-top:10px;
+
+  color:var(--muted);
+
+  font-size:9px;
+}
+
+
+/* ======================================================
+   Q4 EXPECTATION
+====================================================== */
+
+.expectation{
+  position:relative;
+
+  margin-top:19px;
+
+  padding:21px 23px;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  gap:20px;
+
+  color:#fff;
+
+  background:
+    linear-gradient(
+      120deg,
+      #111827,
+      #1e293b
+    );
+
+  border-radius:23px;
+
+  overflow:hidden;
+}
+
+.expectation:after{
+  content:"";
+
+  position:absolute;
+
+  width:180px;
+  height:180px;
+
+  right:-80px;
+  top:-80px;
+
+  border-radius:50%;
+
+  background:
+    rgba(37,99,235,.13);
+}
+
+.expectation-main{
+  position:relative;
+  z-index:2;
+}
+
+.expectation small{
+  display:block;
+
+  margin-bottom:5px;
+
+  color:#94a3b8;
+
+  font-size:9px;
+  font-weight:900;
+
+  text-transform:uppercase;
+  letter-spacing:.07em;
+}
+
+.expectation strong{
+  display:block;
+
+  max-width:720px;
+
+  font-size:16px;
+  line-height:1.4;
+}
+
+.expectation-goal{
+  position:relative;
+  z-index:2;
+
+  min-width:225px;
+
+  padding:12px 15px;
+
+  background:
+    rgba(255,255,255,.08);
+
+  border-radius:15px;
+
+  text-align:right;
+
+  animation:
+    pulseGlow 4s ease-in-out infinite;
+}
+
+.expectation-goal span{
+  display:block;
+
+  color:#94a3b8;
+
+  font-size:8px;
+  font-weight:900;
+
+  text-transform:uppercase;
+}
+
+.expectation-goal b{
+  display:block;
+
+  margin-top:3px;
+
+  font-size:16px;
+}
+
+
+/* ======================================================
+   FOOTNOTE
+====================================================== */
+
+.footnote{
+  margin-top:16px;
+
+  text-align:center;
+
+  color:#8a94a3;
+
+  font-size:9px;
+  line-height:1.5;
+}
+
+
+/* ======================================================
+   RESPONSIVE
+====================================================== */
+
+@media(max-width:1100px){
+
+  .hero{
+    display:block;
+  }
+
+  .hero-summary{
+    margin-top:18px;
+  }
+
+  .summary-grid,
+  .compare-grid,
+  .reward-grid{
+    grid-template-columns:
+      repeat(2,1fr);
+  }
+
+  .plan-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:700px){
+
+  body{
+    padding:18px;
+  }
+
+  h1{
+    font-size:36px;
+  }
+
+  .summary-grid,
+  .compare-grid,
+  .reward-grid,
+  .target-grid{
+    grid-template-columns:1fr;
+  }
+
+  .section-title,
+  .rewards-header,
+  .expectation{
+    display:block;
+  }
+
+  .section-badge,
+  .live-badge{
+    display:inline-block;
+
+    margin-top:10px;
+  }
+
+  .expectation-goal{
+    margin-top:15px;
+
+    text-align:left;
+  }
+}
+
 </style>
 </head>
+
+
 <body>
+
 <div class="page">
-  <section class="hero">
-    <div>
-      <div class="kicker">Q1 2026 · Jan–Mar · CRR</div>
-      <h1>Retention Summary Dashboard</h1>
+
+
+<!-- ======================================================
+     HERO
+====================================================== -->
+
+<section class="hero reveal">
+
+  <div>
+
+    <div class="kicker">
+      Q2 2026 · Retention Assessment
     </div>
-    <div class="summary-pill">
-      <span>Headline takeaway</span>
-      <b>Existing users are the strength</b>
-    </div>
-  </section>
 
-  <section class="grid">
-    <article class="flip-card brazil" onclick="this.classList.toggle('flip')">
-      <div class="inner">
-        <div class="face">
-          <div class="top"><span class="tag country">Brazil</span><span class="tag segment">FTD</span></div>
-          <div class="big">18.11%</div>
-          <div class="label">Best Q1 M1 CRR · February cohort</div>
-          <div class="bars">
-            <div class="row"><span>Jan</span><div class="track"><div class="fill" style="width:61%"></div></div><span>11.00%</span></div>
-            <div class="row"><span>Feb</span><div class="track"><div class="fill" style="width:100%"></div></div><span>18.11%</span></div>
-            <div class="row"><span>Mar</span><div class="track"><div class="fill" style="width:72%"></div></div><span>13.06%</span></div>
-          </div>
-        </div>
-        <div class="face back">
-          <div class="tap">Click to return</div>
-          <div class="score-ring" style="--p:72%"><span>Good</span></div>
-          <h3>Strongest FTD base</h3>
-          <p>Brazil has the best FTD M1 result in Q1. February should be reviewed for campaign, bonus, or onboarding drivers.</p>
-          <div class="note">Action: replicate Feb mechanics into future FTD journeys.</div>
-        </div>
-      </div>
-    </article>
+    <h1>
+      Retention Summary & Q4 Direction
+    </h1>
 
-    <article class="flip-card brazil" onclick="this.classList.toggle('flip')">
-      <div class="inner">
-        <div class="face">
-          <div class="top"><span class="tag country">Brazil</span><span class="tag segment">Existing</span></div>
-          <div class="big">60.56%</div>
-          <div class="label">Best Q1 M1 CRR · January cohort</div>
-          <div class="bars">
-            <div class="row"><span>Jan</span><div class="track"><div class="fill" style="width:100%"></div></div><span>60.56%</span></div>
-            <div class="row"><span>Feb</span><div class="track"><div class="fill" style="width:98%"></div></div><span>59.09%</span></div>
-            <div class="row"><span>Mar</span><div class="track"><div class="fill" style="width:100%"></div></div><span>60.36%</span></div>
-          </div>
-        </div>
-        <div class="face back">
-          <div class="tap">Click to return</div>
-          <div class="score-ring" style="--p:88%"><span>Stable</span></div>
-          <h3>Most consistent segment</h3>
-          <p>Brazil Existing retention stays around 59–61%, showing a reliable loyal-user base.</p>
-          <div class="note">Action: increase volume while preserving loyalty quality.</div>
-        </div>
-      </div>
-    </article>
+    <p class="hero-text">
+      Review of Q2 M1 retention across Brazil and Mexico,
+      Q1 vs Q2 performance, early FastTrack Rewards observations
+      and the upcoming retention initiatives being prepared for Q4.
+    </p>
 
-    <article class="flip-card mexico" onclick="this.classList.toggle('flip')">
-      <div class="inner">
-        <div class="face">
-          <div class="top"><span class="tag country">Mexico</span><span class="tag segment">FTD</span></div>
-          <div class="big">15.42%</div>
-          <div class="label">Best Q1 M1 CRR · March cohort</div>
-          <div class="bars">
-            <div class="row"><span>Jan</span><div class="track"><div class="fill" style="width:43%"></div></div><span>6.60%</span></div>
-            <div class="row"><span>Feb</span><div class="track"><div class="fill" style="width:57%"></div></div><span>8.73%</span></div>
-            <div class="row"><span>Mar</span><div class="track"><div class="fill" style="width:100%"></div></div><span>15.42%</span></div>
-          </div>
-        </div>
-        <div class="face back">
-          <div class="tap">Click to return</div>
-          <div class="score-ring" style="--p:62%"><span>Rising</span></div>
-          <h3>Improving FTD trend</h3>
-          <p>Mexico FTD started weak but improved sharply in March, suggesting better acquisition quality or stronger activation.</p>
-          <div class="note">Action: compare March vs Jan/Feb source mix and CRM flow.</div>
-        </div>
-      </div>
-    </article>
+  </div>
 
-    <article class="flip-card mexico" onclick="this.classList.toggle('flip')">
-      <div class="inner">
-        <div class="face">
-          <div class="top"><span class="tag country">Mexico</span><span class="tag segment">Existing</span></div>
-          <div class="big">70.00%</div>
-          <div class="label">Best Q1 M1 CRR · February cohort</div>
-          <div class="bars">
-            <div class="row"><span>Jan</span><div class="track"><div class="fill" style="width:76%"></div></div><span>53.04%</span></div>
-            <div class="row"><span>Feb</span><div class="track"><div class="fill" style="width:100%"></div></div><span>70.00%</span></div>
-            <div class="row"><span>Mar</span><div class="track"><div class="fill" style="width:81%"></div></div><span>56.54%</span></div>
-          </div>
-        </div>
-        <div class="face back">
-          <div class="tap">Click to return</div>
-          <div class="score-ring" style="--p:95%"><span>Best</span></div>
-          <h3>Top Q1 performer</h3>
-          <p>Mexico Existing produced the strongest single result in Q1, reaching 70% M1 retention in February.</p>
-          <div class="note">Action: identify February retention hooks and reuse them.</div>
-        </div>
-      </div>
-    </article>
-  </section>
 
-  <section class="footer">
-    <div class="insight"><b>FTD needs activation support</b><span>FTD retention is much lower than Existing retention in both countries, so early lifecycle CRM is the biggest opportunity.</span></div>
-    <div class="insight"><b>Brazil = consistency</b><span>Brazil has steady Existing retention and stronger FTD performance across Q1 compared with Mexico’s early months.</span></div>
-    <div class="insight"><b>Mexico = peak potential</b><span>Mexico shows the strongest high point, especially Existing users in February and FTD improvement in March.</span></div>
-  </section>
+  <div class="hero-summary">
+
+    <small>
+      Q2 headline
+    </small>
+
+    <strong>
+      Retention performance remains mixed,
+      with a stronger focus needed on consistency.
+    </strong>
+
+  </div>
+
+</section>
+
+
+
+<!-- ======================================================
+     Q2 MONTHLY PERFORMANCE
+====================================================== -->
+
+<div class="section-title reveal delay-1">
+
+  <div>
+
+    <h2>
+      Q2 Monthly M1 Performance
+    </h2>
+
+    <p>
+      April, May and June cohort comparison.
+    </p>
+
+  </div>
+
+  <div class="section-badge">
+    M1 CRR
+  </div>
+
 </div>
+
+
+<section class="summary-grid">
+
+
+<!-- BRAZIL FTD -->
+
+<article class="summary-card br reveal delay-1">
+
+  <div class="card-top">
+
+    <span class="tag country-tag">
+      Brazil
+    </span>
+
+    <span class="tag segment-tag">
+      FTD
+    </span>
+
+  </div>
+
+
+  <div class="big">
+    11.76%
+  </div>
+
+  <div class="big-label">
+    Best Q2 M1 CRR · April
+  </div>
+
+
+  <div class="bars">
+
+    <div class="bar-row">
+
+      <span>Apr</span>
+
+      <div class="track">
+        <div class="fill" style="width:100%"></div>
+      </div>
+
+      <span class="bar-value">
+        11.76%
+      </span>
+
+    </div>
+
+
+    <div class="bar-row">
+
+      <span>May</span>
+
+      <div class="track">
+        <div class="fill" style="width:70.83%"></div>
+      </div>
+
+      <span class="bar-value">
+        8.33%
+      </span>
+
+    </div>
+
+
+    <div class="bar-row">
+
+      <span>Jun</span>
+
+      <div class="track">
+        <div class="fill" style="width:46.43%"></div>
+      </div>
+
+      <span class="bar-value">
+        5.46%
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="trend">
+
+    <strong>
+      ↓ Declining trend
+    </strong>
+
+    <span>
+      M1 softened across the three Q2 cohorts.
+    </span>
+
+  </div>
+
+</article>
+
+
+
+<!-- BRAZIL EXISTING -->
+
+<article class="summary-card br reveal delay-2">
+
+  <div class="card-top">
+
+    <span class="tag country-tag">
+      Brazil
+    </span>
+
+    <span class="tag segment-tag">
+      Existing
+    </span>
+
+  </div>
+
+
+  <div class="big">
+    51.81%
+  </div>
+
+  <div class="big-label">
+    Best Q2 M1 CRR · June
+  </div>
+
+
+  <div class="bars">
+
+    <div class="bar-row">
+
+      <span>Apr</span>
+
+      <div class="track">
+        <div class="fill" style="width:90.77%"></div>
+      </div>
+
+      <span class="bar-value">
+        47.03%
+      </span>
+
+    </div>
+
+
+    <div class="bar-row">
+
+      <span>May</span>
+
+      <div class="track">
+        <div class="fill" style="width:94.86%"></div>
+      </div>
+
+      <span class="bar-value">
+        49.15%
+      </span>
+
+    </div>
+
+
+    <div class="bar-row">
+
+      <span>Jun</span>
+
+      <div class="track">
+        <div class="fill" style="width:100%"></div>
+      </div>
+
+      <span class="bar-value">
+        51.81%
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="trend">
+
+    <strong>
+      ↑ Positive movement
+    </strong>
+
+    <span>
+      Existing M1 improved month by month.
+    </span>
+
+  </div>
+
+</article>
+
+
+
+<!-- MEXICO FTD -->
+
+<article class="summary-card mx reveal delay-3">
+
+  <div class="card-top">
+
+    <span class="tag country-tag">
+      Mexico
+    </span>
+
+    <span class="tag segment-tag">
+      FTD
+    </span>
+
+  </div>
+
+
+  <div class="big">
+    17.44%
+  </div>
+
+  <div class="big-label">
+    Best Q2 M1 CRR · April
+  </div>
+
+
+  <div class="bars">
+
+    <div class="bar-row">
+
+      <span>Apr</span>
+
+      <div class="track">
+        <div class="fill" style="width:100%"></div>
+      </div>
+
+      <span class="bar-value">
+        17.44%
+      </span>
+
+    </div>
+
+
+    <div class="bar-row">
+
+      <span>May</span>
+
+      <div class="track">
+        <div class="fill" style="width:69.95%"></div>
+      </div>
+
+      <span class="bar-value">
+        12.20%
+      </span>
+
+    </div>
+
+
+    <div class="bar-row">
+
+      <span>Jun</span>
+
+      <div class="track">
+        <div class="fill" style="width:44.78%"></div>
+      </div>
+
+      <span class="bar-value">
+        7.81%
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="trend">
+
+    <strong>
+      ↓ Strong start, softer finish
+    </strong>
+
+    <span>
+      April performed strongly but was not sustained.
+    </span>
+
+  </div>
+
+</article>
+
+
+
+<!-- MEXICO EXISTING -->
+
+<article class="summary-card mx reveal delay-4">
+
+  <div class="card-top">
+
+    <span class="tag country-tag">
+      Mexico
+    </span>
+
+    <span class="tag segment-tag">
+      Existing
+    </span>
+
+  </div>
+
+
+  <div class="big">
+    55.86%
+  </div>
+
+  <div class="big-label">
+    Best Q2 M1 CRR · April
+  </div>
+
+
+  <div class="bars">
+
+    <div class="bar-row">
+
+      <span>Apr</span>
+
+      <div class="track">
+        <div class="fill" style="width:100%"></div>
+      </div>
+
+      <span class="bar-value">
+        55.86%
+      </span>
+
+    </div>
+
+
+    <div class="bar-row">
+
+      <span>May</span>
+
+      <div class="track">
+        <div class="fill" style="width:86.52%"></div>
+      </div>
+
+      <span class="bar-value">
+        48.33%
+      </span>
+
+    </div>
+
+
+    <div class="bar-row">
+
+      <span>Jun</span>
+
+      <div class="track">
+        <div class="fill" style="width:90.31%"></div>
+      </div>
+
+      <span class="bar-value">
+        50.45%
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="trend">
+
+    <strong>
+      → Relatively stable
+    </strong>
+
+    <span>
+      June recovered slightly following May.
+    </span>
+
+  </div>
+
+</article>
+
+</section>
+
+
+
+<!-- ======================================================
+     Q1 VS Q2
+====================================================== -->
+
+<div class="section-title reveal">
+
+  <div>
+
+    <h2>
+      Q1 vs Q2 Average M1 CRR
+    </h2>
+
+    <p>
+      Simple average of the three monthly M1 CRR results in each quarter.
+    </p>
+
+  </div>
+
+  <div class="section-badge">
+    Quarter Comparison
+  </div>
+
+</div>
+
+
+<section class="compare-box reveal">
+
+  <div class="compare-grid">
+
+
+    <div class="compare-card br-compare">
+
+      <div class="compare-head">
+
+        <strong>
+          Brazil · FTD
+        </strong>
+
+        <span class="mini-country">
+          Brazil
+        </span>
+
+      </div>
+
+
+      <div class="compare-label">
+        Average M1
+      </div>
+
+
+      <div class="compare-values">
+
+        <div class="quarter">
+          <small>Q1</small>
+          <b>14.06%</b>
+        </div>
+
+        <span class="compare-arrow">
+          →
+        </span>
+
+        <div class="quarter">
+          <small>Q2</small>
+          <b>8.52%</b>
+        </div>
+
+      </div>
+
+      <span class="delta down">
+        ▼ 5.54pp
+      </span>
+
+    </div>
+
+
+
+    <div class="compare-card br-compare">
+
+      <div class="compare-head">
+
+        <strong>
+          Brazil · Existing
+        </strong>
+
+        <span class="mini-country">
+          Brazil
+        </span>
+
+      </div>
+
+
+      <div class="compare-label">
+        Average M1
+      </div>
+
+
+      <div class="compare-values">
+
+        <div class="quarter">
+          <small>Q1</small>
+          <b>60.00%</b>
+        </div>
+
+        <span class="compare-arrow">
+          →
+        </span>
+
+        <div class="quarter">
+          <small>Q2</small>
+          <b>49.33%</b>
+        </div>
+
+      </div>
+
+      <span class="delta down">
+        ▼ 10.67pp
+      </span>
+
+    </div>
+
+
+
+    <div class="compare-card mx-compare">
+
+      <div class="compare-head">
+
+        <strong>
+          Mexico · FTD
+        </strong>
+
+        <span class="mini-country">
+          Mexico
+        </span>
+
+      </div>
+
+
+      <div class="compare-label">
+        Average M1
+      </div>
+
+
+      <div class="compare-values">
+
+        <div class="quarter">
+          <small>Q1</small>
+          <b>10.25%</b>
+        </div>
+
+        <span class="compare-arrow">
+          →
+        </span>
+
+        <div class="quarter">
+          <small>Q2</small>
+          <b>12.48%</b>
+        </div>
+
+      </div>
+
+      <span class="delta up">
+        ▲ 2.23pp
+      </span>
+
+    </div>
+
+
+
+    <div class="compare-card mx-compare">
+
+      <div class="compare-head">
+
+        <strong>
+          Mexico · Existing
+        </strong>
+
+        <span class="mini-country">
+          Mexico
+        </span>
+
+      </div>
+
+
+      <div class="compare-label">
+        Average M1
+      </div>
+
+
+      <div class="compare-values">
+
+        <div class="quarter">
+          <small>Q1</small>
+          <b>59.86%</b>
+        </div>
+
+        <span class="compare-arrow">
+          →
+        </span>
+
+        <div class="quarter">
+          <small>Q2</small>
+          <b>51.55%</b>
+        </div>
+
+      </div>
+
+      <span class="delta down">
+        ▼ 8.31pp
+      </span>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- ======================================================
+     FASTTRACK REWARDS
+====================================================== -->
+
+<div class="section-title reveal">
+
+  <div>
+
+    <h2>
+      FastTrack Rewards · Early Read
+    </h2>
+
+    <p>
+      Rewards / bonus transparency launched around 27 April.
+      The current Rewards Mission remains active until 31 October.
+    </p>
+
+  </div>
+
+</div>
+
+
+<section class="rewards-panel reveal">
+
+  <div class="rewards-header">
+
+    <div class="rewards-title">
+
+      <div class="rewards-icon">
+        🎁
+      </div>
+
+      <div>
+
+        <h3>
+          Current Retention Signal
+        </h3>
+
+        <p>
+          Early directional observation only — not a direct attribution of CRR movement.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="live-badge">
+      Live · Until 31 Oct
+    </div>
+
+  </div>
+
+
+
+  <div class="reward-grid">
+
+
+    <div class="reward-card">
+
+      <strong>
+        Brazil · FTD
+      </strong>
+
+      <div class="reward-flow">
+
+        <div class="rmonth">
+          <small>Apr</small>
+          <b>11.76%</b>
+        </div>
+
+        <span class="reward-arrow">→</span>
+
+        <div class="rmonth">
+          <small>May</small>
+          <b>8.33%</b>
+        </div>
+
+        <span class="reward-arrow">→</span>
+
+        <div class="rmonth">
+          <small>Jun</small>
+          <b>5.46%</b>
+        </div>
+
+      </div>
+
+      <p class="reward-note">
+        No clear uplift visible yet.
+      </p>
+
+    </div>
+
+
+
+    <div class="reward-card">
+
+      <strong>
+        Brazil · Existing
+      </strong>
+
+      <div class="reward-flow">
+
+        <div class="rmonth">
+          <small>Apr</small>
+          <b>47.03%</b>
+        </div>
+
+        <span class="reward-arrow">→</span>
+
+        <div class="rmonth">
+          <small>May</small>
+          <b>49.15%</b>
+        </div>
+
+        <span class="reward-arrow">→</span>
+
+        <div class="rmonth">
+          <small>Jun</small>
+          <b>51.81%</b>
+        </div>
+
+      </div>
+
+      <p class="reward-note">
+        Positive upward movement so far.
+      </p>
+
+    </div>
+
+
+
+    <div class="reward-card">
+
+      <strong>
+        Mexico · FTD
+      </strong>
+
+      <div class="reward-flow">
+
+        <div class="rmonth">
+          <small>Apr</small>
+          <b>17.44%</b>
+        </div>
+
+        <span class="reward-arrow">→</span>
+
+        <div class="rmonth">
+          <small>May</small>
+          <b>12.20%</b>
+        </div>
+
+        <span class="reward-arrow">→</span>
+
+        <div class="rmonth">
+          <small>Jun</small>
+          <b>7.81%</b>
+        </div>
+
+      </div>
+
+      <p class="reward-note">
+        Strong April was not sustained.
+      </p>
+
+    </div>
+
+
+
+    <div class="reward-card">
+
+      <strong>
+        Mexico · Existing
+      </strong>
+
+      <div class="reward-flow">
+
+        <div class="rmonth">
+          <small>Apr</small>
+          <b>55.86%</b>
+        </div>
+
+        <span class="reward-arrow">→</span>
+
+        <div class="rmonth">
+          <small>May</small>
+          <b>48.33%</b>
+        </div>
+
+        <span class="reward-arrow">→</span>
+
+        <div class="rmonth">
+          <small>Jun</small>
+          <b>50.45%</b>
+        </div>
+
+      </div>
+
+      <p class="reward-note">
+        Mixed result with slight June recovery.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- ======================================================
+     Q4 TARGET
+====================================================== -->
+
+<div class="section-title reveal">
+
+  <div>
+
+    <h2>
+      Q4 Retention Direction
+    </h2>
+
+    <p>
+      A realistic next-step benchmark based on Q1–Q2 performance,
+      while keeping the original ambition as the longer-term goal.
+    </p>
+
+  </div>
+
+  <div class="section-badge">
+    Proposed
+  </div>
+
+</div>
+
+
+<section class="target-panel reveal">
+
+  <div class="target-grid">
+
+
+    <div class="target-card ftd">
+
+      <div class="target-tag">
+        Q4 FTD Direction
+      </div>
+
+      <div class="target-number">
+        12–15%
+      </div>
+
+      <h3>
+        Monthly M1 CRR
+      </h3>
+
+      <p>
+        First priority is to recover consistency and move
+        monthly retention closer to the original 15% benchmark.
+      </p>
+
+      <div class="target-foot">
+        Higher Goal · ≥15% consistently
+      </div>
+
+    </div>
+
+
+
+    <div class="target-card existing">
+
+      <div class="target-tag">
+        Q4 Existing Direction
+      </div>
+
+      <div class="target-number">
+        55–60%+
+      </div>
+
+      <h3>
+        Monthly M1 CRR
+      </h3>
+
+      <p>
+        Build sustainable improvement from the current
+        50% range before moving toward the longer-term target.
+      </p>
+
+      <div class="target-foot">
+        Long-Term Ambition · ≥80%
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- ======================================================
+     CURRENT + UPCOMING PLAN
+====================================================== -->
+
+<div class="section-title reveal">
+
+  <div>
+
+    <h2>
+      Current & Upcoming Retention Plan
+    </h2>
+
+    <p>
+      One active initiative and two concepts currently under discussion.
+    </p>
+
+  </div>
+
+</div>
+
+
+<section class="plan-grid">
+
+
+<!-- PLAN 1 -->
+
+<div class="plan-card live reveal delay-1">
+
+  <div class="plan-number">
+    01
+  </div>
+
+  <div class="plan-status active">
+    Live
+  </div>
+
+  <h3>
+    Rewards Mission → Rico Shop
+  </h3>
+
+  <p>
+    Continue the existing Rewards Mission while improving
+    awareness through Email, Inbox and On-site reminders.
+  </p>
+
+
+  <div class="plan-focus">
+
+    <small>
+      Focus
+    </small>
+
+    <b>
+      Better mission visibility and stronger reward participation.
+    </b>
+
+  </div>
+
+
+  <div class="plan-date">
+    Active until · 31 Oct
+  </div>
+
+</div>
+
+
+
+<!-- PLAN 2 -->
+
+<div class="plan-card discussion reveal delay-2">
+
+  <div class="plan-number">
+    02
+  </div>
+
+  <div class="plan-status pending">
+    Discussion
+  </div>
+
+  <h3>
+    EXP + Sub Challenge
+  </h3>
+
+  <p>
+    Proposed progression-style challenge inspired by
+    BetFury mechanics, rewarding continued wagering and activity.
+  </p>
+
+
+  <div class="plan-focus">
+
+    <small>
+      Expected Achievement
+    </small>
+
+    <b>
+      Increase wagering frequency and give players another reason to return.
+    </b>
+
+  </div>
+
+
+  <div class="plan-date">
+    Status · Concept / planning discussion
+  </div>
+
+</div>
+
+
+
+<!-- PLAN 3 -->
+
+<div class="plan-card discussion reveal delay-3">
+
+  <div class="plan-number">
+    03
+  </div>
+
+  <div class="plan-status pending">
+    Planning
+  </div>
+
+  <h3>
+    Rebuild 6-Pillar Lifecycle
+  </h3>
+
+  <p>
+    Revisit the full CRM lifecycle from registered players
+    through active, at-risk and churn-player stages.
+  </p>
+
+
+  <div class="plan-focus">
+
+    <small>
+      Expected Achievement
+    </small>
+
+    <b>
+      Improve lifecycle coverage, reduce churn and strengthen reactivation.
+    </b>
+
+  </div>
+
+
+  <div class="plan-date">
+    Status · Structure to be reviewed and planned
+  </div>
+
+</div>
+
+
+</section>
+
+
+
+<!-- ======================================================
+     EXPECTATION
+====================================================== -->
+
+<section class="expectation reveal">
+
+  <div class="expectation-main">
+
+    <small>
+      Q4 Expectation
+    </small>
+
+    <strong>
+      Focus first on consistent month-to-month improvement,
+      stronger Rewards awareness and a more complete player lifecycle,
+      before pushing toward the longer-term retention benchmark.
+    </strong>
+
+  </div>
+
+
+  <div class="expectation-goal">
+
+    <span>
+      Proposed Q4 Direction
+    </span>
+
+    <b>
+      FTD 12–15% · Existing 55–60%+
+    </b>
+
+  </div>
+
+</section>
+
+
+
+<div class="footnote">
+  Q1 average = January–March M1 CRR ·
+  Q2 average = April–June M1 CRR ·
+  Rewards launched around 27 April and the current Rewards Mission runs until 31 October.
+  Upcoming initiatives remain subject to further discussion and planning.
+</div>
+
+
+</div>
+
 </body>
 </html>
